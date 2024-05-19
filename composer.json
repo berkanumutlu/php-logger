@@ -1,0 +1,25 @@
+{
+  "name": "berkanumutlu/php-logger",
+  "type": "project",
+  "description": "PHP Request Logger by Berkan Ümütlü",
+  "keywords": [
+    "php",
+    "logger",
+    "php request logger"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Berkan Ümütlü",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "https://github.com/berkanumutlu/php-logger",
+  "support": {
+    "issues": "https://github.com/berkanumutlu/php-logger/issues",
+    "security": "https://github.com/berkanumutlu/php-logger/security/policy"
+  },
+  "require": {
+    "php": ">=5.6"
+  }
+}
