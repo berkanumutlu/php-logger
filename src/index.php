@@ -1,4 +1,7 @@
 <?php
+
+use App\Library\FileLogger;
+
 require_once '../vendor/autoload.php';
 require_once 'config/db.php';
 $date = date('Y-m-d H:i:s');
@@ -57,7 +60,19 @@ function logRequestToDatabase($pdo, $data)
     ]);
 }
 
-try {
+/**
+ * @return void
+ */
+function logFileWithPsrLog($data)
+{
+    $logger = new FileLogger();
+    $logger->debug('Log from index.php', $data);
+}
+
+/**
+ * Request logged with manually
+ */
+/*try {
     header("Content-Type: application/json; charset=UTF-8");
     $response = new \App\Library\Response();
     $db = \App\Config\DB\getDatabaseConnection();
@@ -66,7 +81,27 @@ try {
     logRequestToDatabase($db, $requestData);
     $response->setStatus(true);
     $response->setStatusCode(200);
-    $response->setMessage("Request logged.");
+    $response->setMessage("Request logged with manually.");
+    $response->setDate($date);
+    echo $response->toJson();
+    exit();
+} catch (\Exception $e) {
+    throw new \Exception($e->getMessage(), (int) $e->getCode());
+}*/
+
+/**
+ * Request logged with psr/log package
+ */
+try {
+    header("Content-Type: application/json; charset=UTF-8");
+    $response = new \App\Library\Response();
+    $db = \App\Config\DB\getDatabaseConnection();
+    $requestData = getRequestData();
+    logFileWithPsrLog($requestData);
+    logRequestToDatabase($db, $requestData);
+    $response->setStatus(true);
+    $response->setStatusCode(200);
+    $response->setMessage("Request logged with psr/log package.");
     $response->setDate($date);
     echo $response->toJson();
     exit();
